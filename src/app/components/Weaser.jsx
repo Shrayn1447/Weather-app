@@ -8,39 +8,28 @@ import {Spinner} from "@nextui-org/spinner";
 import CartData from './CartData';
 export default function Weaser({text}) {
   const { data,isLoading, error} = useQuery({
-    queryKey:["Got", text],
+    queryKey:["eather", text],
     queryFn: async () => {
       return await getAllData(text)
     }
   })
-
+  console.log(data)
   if(isLoading) {
     return(
-      <>
-     <main className='flex justify-center pt-[40px]'>
-        <section className='p-[40px_25px_40px_25px] w-[800px] border flex justify-center items-center  shadow-2xl bg-[#EDFBFF]/20 backdrop-blur-sm rounded-xl h-[400px]'>
          <div>
             <Spinner size='lg'/>
          </div>
-        </section>
-    </main>
-      </>
     )
   }
   if(error) {
     return (
-      <main className='flex justify-center pt-[40px]'>
-        <section className='p-[40px_25px_40px_25px] w-[800px] border flex justify-center items-center text-white   shadow-2xl bg-[#EDFBFF]/20 backdrop-blur-sm rounded-xl h-[400px]'>
-              <h1 className='text-[30px] font-bold'>
-                  Такого города нет
-             </h1>
-          </section>
-  </main>
+      <h1 className='text-[30px] font-bold'>
+        Такого города нет
+      </h1>
     )
   }
   return (
-     <main className='flex justify-center pt-[40px]'>
-        <section className='p-[40px_25px_40px_25px] w-[800px] border flex justify-between text-white  shadow-2xl bg-[#EDFBFF]/20 backdrop-blur-sm rounded-xl'>
+  <>
             <article className='flex flex-col'>
                 <h1 className='text-[80px] text-blue-400 font-medium  '>
                 {isNaN(data?.main?.temp)?'' : Math.round(data?.main?.temp) + " °С"}
@@ -59,9 +48,9 @@ export default function Weaser({text}) {
             </article>
             <article className='flex px-[30px]  items-center flex-col'>
                <h1 className='pb-[20px] text-[22px] font-medium'>
-                {text}
+                {data?.name}
                </h1>
-              <img className='w-[150px] h-[150px]' src={`/${data?.weather[0]?.icon}.png`} alt="Погода" /> 
+              <img  src={`/${data?.weather[0]?.icon}.png`} alt="Погода" /> 
               <h1 className='pb-[25px] text-[30px] font-medium'>{data?.weather[0].main}</h1>
             </article>
             <article className='grid grid-cols-2 place-content-center gap-7'>
@@ -78,8 +67,7 @@ export default function Weaser({text}) {
                         UV
                 </CartData>
             </article>
-        </section>
-    </main>
+ </>
   )
 }
 // 1 /humidity.png

@@ -1,6 +1,6 @@
 'use client'
-import React, { useEffect,useState } from 'react'
-export default function Time() {
+import React, { useEffect,useState,memo } from 'react'
+export default memo(function Time() {
     const [dateState, setDateState] = useState(new Date());
     useEffect(() => {
            setInterval(() => setDateState(new Date()), 10000);
@@ -11,6 +11,6 @@ export default function Time() {
         minute:'numeric'})}
     </div>
   )
-}
+})
 
 
