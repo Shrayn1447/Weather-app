@@ -3,26 +3,29 @@ import React from 'react'
 import {BsSunrise,BsSunset} from 'react-icons/bs'
 import { GetSunTime } from '../lib/GetSunTime'
 import { getAllData } from "../lib/getAllData";
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import CartData from './CartData';
 export default function Weaser({text}) {
   const {data,isLoading,error} = useQuery({
     queryKey:["weather", text],
     queryFn: () => {
       return getAllData(text)
-    }
+    },
+    staleTime:2000,
+    refetchInterval: 120000,
+    cacheTime:10000,
   })
   if(isLoading) {
     return(
-         <div>
-           Загрузка
+         <div className='text-[30px] font-bold'>
+            Поиск
          </div>
     )
   }
   if(error) {
     return (
       <h1 className='text-[30px] font-bold'>
-        Такого города нет
+        Введите город
       </h1>
     )
   }
