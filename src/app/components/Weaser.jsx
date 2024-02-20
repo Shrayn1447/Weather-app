@@ -3,21 +3,19 @@ import React from 'react'
 import {BsSunrise,BsSunset} from 'react-icons/bs'
 import { GetSunTime } from '../lib/GetSunTime'
 import { getAllData } from "../lib/getAllData";
-import { useQuery } from '@tanstack/react-query';
-import {Spinner} from "@nextui-org/spinner";
+import { useQuery } from 'react-query';
 import CartData from './CartData';
 export default function Weaser({text}) {
-  const { data,isLoading, error} = useQuery({
-    queryKey:["eather", text],
-    queryFn: async () => {
-      return await getAllData(text)
+  const {data,isLoading,error} = useQuery({
+    queryKey:["weather", text],
+    queryFn: () => {
+      return getAllData(text)
     }
   })
-  console.log(data)
   if(isLoading) {
     return(
          <div>
-            <Spinner size='lg'/>
+           Загрузка
          </div>
     )
   }
@@ -54,13 +52,13 @@ export default function Weaser({text}) {
               <h1 className='pb-[25px] text-[30px] font-medium'>{data?.weather[0].main}</h1>
             </article>
             <article className='grid grid-cols-2 place-content-center gap-7'>
-                <CartData src={'/humidity.png'} data={data?.main?.humidity}>
+                <CartData src={'/humidity.png'} data={data?.main?.humidity} metric={'гр/м'}>
                       Влажность
                 </CartData>
-                <CartData src={'/wind.png'} data={data?.wind?.speed}>
+                <CartData src={'/wind.png'} data={data?.wind?.speed} metric={'м/c'}>
                         Ветер
                 </CartData>
-                <CartData src={'/pressure-white.png'} data={data?.main?.pressure}>
+                <CartData src={'/pressure-white.png'} data={data?.main?.pressure} metric={'мм рт'}>
                         Давление
                 </CartData>
                 <CartData src={'/uv-white.png'} data={data?.weather?.main}>
