@@ -42,7 +42,7 @@ export default function Weather() {
         setError(false)
         setLoading(true);
         let last5 = `https://api.openweathermap.org/data/2.5/forecast?units=metric&lang=ru&appid=e3e94eeabc7824d0e5310a9b31cfa153`;
-        let apiURL = `http://api.openweathermap.org/data/2.5/weather?units=metric&lang=ru&appid=e3e94eeabc7824d0e5310a9b31cfa153`;
+        let apiURL = `https://api.openweathermap.org/data/2.5/weather?units=metric&lang=ru&appid=e3e94eeabc7824d0e5310a9b31cfa153`;
         if (userCoords && text === "") {
           apiURL += `&lat=${userCoords.lat}&lon=${userCoords.lon}`;
           last5 += `&lat=${userCoords.lat}&lon=${userCoords.lon}`;
